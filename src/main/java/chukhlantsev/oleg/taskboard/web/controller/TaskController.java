@@ -5,7 +5,6 @@ import chukhlantsev.oleg.taskboard.service.TaskService;
 import chukhlantsev.oleg.taskboard.web.dto.task.TaskDto;
 import chukhlantsev.oleg.taskboard.web.dto.validation.onUpdate;
 import chukhlantsev.oleg.taskboard.web.mappers.TaskMapper;
-import jakarta.validation.Valid;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 

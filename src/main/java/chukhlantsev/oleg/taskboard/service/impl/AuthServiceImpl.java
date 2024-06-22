@@ -3,7 +3,9 @@ package chukhlantsev.oleg.taskboard.service.impl;
 import chukhlantsev.oleg.taskboard.service.AuthService;
 import chukhlantsev.oleg.taskboard.web.dto.auth.JwtRequest;
 import chukhlantsev.oleg.taskboard.web.dto.auth.JwtResponse;
+import org.springframework.stereotype.Service;
 
+@Service
 public class AuthServiceImpl implements AuthService {
     @Override
     public JwtResponse login(JwtRequest loginRequest) {

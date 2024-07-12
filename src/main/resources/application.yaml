@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: TaskBoard
+
+
+  datasource:
+    url: jbdc:postgres://localhost:5432/tasklist
+    username: postgress
+    password: admin
+    driver-class-name: org.postgresql.Driver
+#here is some imitation of sql migration
+  sql:
+    init:
+      mode: always #using this mode we will every launch to perform sql code ( in schema.sql )
+      continue-on-error: false
+  #    data-locations: classpath:demo_data.sql #addition file with sql code. It put test data to sql tables. Should be perform only 1 time, that is why now it's turn off
+security:
+  jwt:
+    access: 360000
+    refresh: 2592000000
+    # secret that use to make signature of the token. It's a random string that encode via Base64
+    secret: ZGpqc2RvaWprbGt6bmpzYmpraHpiZ25kYkpac25zYmZzZGE=

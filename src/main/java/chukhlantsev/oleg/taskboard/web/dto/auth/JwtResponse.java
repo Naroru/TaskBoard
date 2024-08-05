@@ -2,6 +2,7 @@ package chukhlantsev.oleg.taskboard.web.dto.auth;
 
 import lombok.Data;
 
+//возвращать пользователю мы будем его имя, ай ди, а также пару - токен доступа и рефреш токен
 @Data
 public class JwtResponse {
 

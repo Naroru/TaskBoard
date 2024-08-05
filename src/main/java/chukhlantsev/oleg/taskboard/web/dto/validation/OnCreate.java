@@ -1,4 +1,4 @@
 package chukhlantsev.oleg.taskboard.web.dto.validation;
 
-public interface onUpdate {
+public interface OnCreate {
 }

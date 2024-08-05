@@ -3,7 +3,7 @@ package chukhlantsev.oleg.taskboard.web.controller;
 import chukhlantsev.oleg.taskboard.domain.task.Task;
 import chukhlantsev.oleg.taskboard.service.TaskService;
 import chukhlantsev.oleg.taskboard.web.dto.task.TaskDto;
-import chukhlantsev.oleg.taskboard.web.dto.validation.onUpdate;
+import chukhlantsev.oleg.taskboard.web.dto.validation.OnUpdate;
 import chukhlantsev.oleg.taskboard.web.mappers.TaskMapper;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +29,7 @@ public class TaskController {
     }
 
     @PutMapping
-    public TaskDto update(@Validated(onUpdate.class) @RequestBody TaskDto dto)
+    public TaskDto update(@Validated(OnUpdate.class) @RequestBody TaskDto dto)
     {
         Task task = mapper.toEntity(dto);
         Task updatedtask = taskService.update(task);

@@ -6,8 +6,8 @@ import chukhlantsev.oleg.taskboard.service.TaskService;
 import chukhlantsev.oleg.taskboard.service.UserService;
 import chukhlantsev.oleg.taskboard.web.dto.task.TaskDto;
 import chukhlantsev.oleg.taskboard.web.dto.user.UserDto;
-import chukhlantsev.oleg.taskboard.web.dto.validation.onCreate;
-import chukhlantsev.oleg.taskboard.web.dto.validation.onUpdate;
+import chukhlantsev.oleg.taskboard.web.dto.validation.OnCreate;
+import chukhlantsev.oleg.taskboard.web.dto.validation.OnUpdate;
 import chukhlantsev.oleg.taskboard.web.mappers.TaskMapper;
 import chukhlantsev.oleg.taskboard.web.mappers.UserMapper;
 import org.springframework.validation.annotation.Validated;
@@ -41,7 +41,7 @@ public class UserController {
     }
 
     @PostMapping
-    public UserDto createUser(@Validated(onCreate.class) @RequestBody UserDto dto)
+    public UserDto createUser(@Validated(OnCreate.class) @RequestBody UserDto dto)
     {
 
         User user = userMapper.toEntity(dto);
@@ -52,7 +52,7 @@ public class UserController {
     }
 
     @PutMapping
-    public UserDto updateUser(@Validated(onUpdate.class) @RequestBody UserDto dto)
+    public UserDto updateUser(@Validated(OnUpdate.class) @RequestBody UserDto dto)
     {
         User user = userMapper.toEntity(dto);
         User updatedUser = userService.update(user);
@@ -75,7 +75,7 @@ public class UserController {
     }
 
     @PostMapping("/{id}/tasks")
-    public TaskDto createTaskForUser(@PathVariable long id, @Validated(onCreate.class) @RequestBody TaskDto dto)
+    public TaskDto createTaskForUser(@PathVariable long id, @Validated(OnCreate.class) @RequestBody TaskDto dto)
     {
         Task task = taskMapper.toEntity(dto);
         Task newTask = taskService.create(task, id);

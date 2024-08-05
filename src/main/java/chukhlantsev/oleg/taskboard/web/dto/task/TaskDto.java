@@ -1,7 +1,8 @@
 package chukhlantsev.oleg.taskboard.web.dto.task;
 
 import chukhlantsev.oleg.taskboard.domain.task.Status;
-import chukhlantsev.oleg.taskboard.web.dto.validation.*;
+import chukhlantsev.oleg.taskboard.web.dto.validation.OnCreate;
+import chukhlantsev.oleg.taskboard.web.dto.validation.OnUpdate;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -15,8 +16,8 @@ import java.time.LocalDateTime;
 @Data
 public class TaskDto {
 
-    @NotNull(message = "Id must be not null", groups = onUpdate.class)
-    @Null(message = "Id must be  null", groups = onCreate.class)
+    @NotNull(message = "Id must be not null", groups = OnUpdate.class)
+    @Null(message = "Id must be  null", groups = OnCreate.class)
     Long id;
 
     @NotBlank(message = "Title must be not blank")

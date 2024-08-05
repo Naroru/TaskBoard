@@ -1,15 +1,12 @@
 package chukhlantsev.oleg.taskboard.domain.task;
 
+import chukhlantsev.oleg.taskboard.domain.user.User;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -31,6 +28,10 @@ public class Task {
 
     @Enumerated(EnumType.STRING)
     Status status;
+
+    @ManyToOne
+    @JoinColumn(name = "fk_user_id")
+    private User user;
 
     LocalDateTime expirationDate;
 

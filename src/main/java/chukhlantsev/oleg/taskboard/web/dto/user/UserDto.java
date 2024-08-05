@@ -1,7 +1,7 @@
 package chukhlantsev.oleg.taskboard.web.dto.user;
 
-import chukhlantsev.oleg.taskboard.web.dto.validation.onCreate;
-import chukhlantsev.oleg.taskboard.web.dto.validation.onUpdate;
+import chukhlantsev.oleg.taskboard.web.dto.validation.OnCreate;
+import chukhlantsev.oleg.taskboard.web.dto.validation.OnUpdate;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Null;
@@ -11,8 +11,8 @@ import org.hibernate.validator.constraints.Length;
 @Data
 public class UserDto {
 
-    @NotNull(groups = onUpdate.class, message = "Id must be ton null")
-    @Null(groups = onCreate.class, message = "Id ,must be null")
+    @NotNull(groups = OnUpdate.class, message = "Id must be ton null")
+    @Null(groups = OnCreate.class, message = "Id ,must be null")
     private Long id;
 
     @NotNull(message = "Name must be not null")
@@ -30,7 +30,7 @@ public class UserDto {
     private String password;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @NotNull(message = "Password confirmation must be not null", groups = onCreate.class)
+    @NotNull(message = "Password confirmation must be not null", groups = OnCreate.class)
     private String passwordConfirmation;
 
 }

@@ -7,16 +7,16 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface TaskRepository extends JpaRepository<Task, Long> {
 
     // без nativeQuery используется JPQL, а не SQL. У него немного другой синтаксис.
+    //@Param подставляет параметр в запрос
     @Query(value = """
-            SELECT * FROM task t
-            JOIN users_tasks ut ON ut.task_id = t.id
-            WHERE ut.user_id = :userID
+            SELECT * FROM tasks t
+            WHERE t.fk_user_id = :userID
             """, nativeQuery = true)
     List<Task> findAllByUserId(@Param("userID") Long userID);
 
+    //List<Task> findAllByUserId(Long userID);
 }

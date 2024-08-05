@@ -2,7 +2,8 @@ package chukhlantsev.oleg.taskboard.domain.user;
 
 import chukhlantsev.oleg.taskboard.domain.task.Task;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 import java.util.Set;
@@ -25,15 +26,13 @@ public class User {
     @Transient
     private String passwordConfirmation;
 
-
     @Column(name = "role")
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name ="users_roles")
     @Enumerated(value = EnumType.STRING)
     private Set<Role> roles;
 
-    @OneToMany
-    @JoinColumn(name = "user_id")
+    @OneToMany(mappedBy = "user")
     private List<Task> tasks;
 
 

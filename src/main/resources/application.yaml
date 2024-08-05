@@ -2,18 +2,27 @@ spring:
   application:
     name: TaskBoard
 
+  #becasue we have docker support in pon.xml it seems we don't need to confugure all objects from deocker compose.
+  #we dont need to configure database in particular
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/tasklist
+#    username: postgress
+#    password: admin
+#    driver-class-name: org.postgresql.Driver
 
-  datasource:
-    url: jbdc:postgres://localhost:5432/tasklist
-    username: postgress
-    password: admin
-    driver-class-name: org.postgresql.Driver
-#here is some imitation of sql migration
+#  liquibase:
+#    change-log: classpath:liquibase/db.main-changelog.yaml
+#    enabled: true
+#    default-schema: public
+
+
+  #here is some imitation of sql migration
   sql:
     init:
       mode: always #using this mode we will every launch to perform sql code ( in schema.sql )
       continue-on-error: false
-  #    data-locations: classpath:demo_data.sql #addition file with sql code. It put test data to sql tables. Should be perform only 1 time, that is why now it's turn off
+     # data-locations: classpath:demo_data.sql #addition file with sql code. It put test data to sql tables. Should be perform only 1 time, that is why now it's turn off
+
 security:
   jwt:
     access: 360000

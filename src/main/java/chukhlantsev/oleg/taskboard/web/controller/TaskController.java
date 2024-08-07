@@ -5,12 +5,14 @@ import chukhlantsev.oleg.taskboard.service.TaskService;
 import chukhlantsev.oleg.taskboard.web.dto.task.TaskDto;
 import chukhlantsev.oleg.taskboard.web.dto.validation.OnUpdate;
 import chukhlantsev.oleg.taskboard.web.mappers.TaskMapper;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/v1/tasks")
 @Validated
+@Tag(name = "Task controller", description = "Task API")
 public class TaskController {
 
     private final TaskService taskService;

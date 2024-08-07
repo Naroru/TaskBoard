@@ -29,3 +29,6 @@ security:
     refresh: 2592000000
     # secret that use to make signature of the token. It's a random string that encode via Base64
     secret: ZGpqc2RvaWprbGt6bmpzYmpraHpiZ25kYkpac25zYmZzZGE=
+
+springdoc:
+  override-with-generic-response: false

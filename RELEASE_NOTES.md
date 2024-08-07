@@ -1,3 +1,6 @@
+## 0.4.0-SNAPSHOT
+* added Swagger functional
+* 
 ## 0.3.0-SNAPSHOT
 * added liquibase functional
 * 

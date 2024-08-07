@@ -10,6 +10,8 @@ import chukhlantsev.oleg.taskboard.web.dto.validation.OnCreate;
 import chukhlantsev.oleg.taskboard.web.dto.validation.OnUpdate;
 import chukhlantsev.oleg.taskboard.web.mappers.TaskMapper;
 import chukhlantsev.oleg.taskboard.web.mappers.UserMapper;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +20,7 @@ import java.util.List;
 @RestController
 @RequestMapping("api/v1/users")
 @Validated
+@Tag(name = "User controller", description = "User API")
 public class UserController {
 
     private final UserService userService;
@@ -34,6 +37,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Get user by ID")
     public UserDto getById(@PathVariable Long id)
     {
         User user = userService.getByID(id);
@@ -41,6 +45,7 @@ public class UserController {
     }
 
     @PostMapping
+    @Operation(summary = "Create new user")
     public UserDto createUser(@Validated(OnCreate.class) @RequestBody UserDto dto)
     {
 
@@ -52,6 +57,7 @@ public class UserController {
     }
 
     @PutMapping
+    @Operation(summary = "Update existing user")
     public UserDto updateUser(@Validated(OnUpdate.class) @RequestBody UserDto dto)
     {
         User user = userMapper.toEntity(dto);
@@ -61,6 +67,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Delete user")
     public void deleteById(@PathVariable Long id)
     {
         userService.delete(id);

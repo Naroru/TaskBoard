@@ -121,15 +121,15 @@ public String createAccessToken(Long userID, String username, Set<Role> roles)
     }
 
     public boolean validateToken(String token) {
-
         Jws<Claims> claims = Jwts
                 .parserBuilder()
                 .setSigningKey(key)
                 .build()
                 .parseClaimsJws(token);
-
         return claims.getBody().getExpiration().after(new Date());
 
+
+        //todo залогировать ошибку ExpiredJwtException
     }
 
     public Authentication getAuthentication(String token)

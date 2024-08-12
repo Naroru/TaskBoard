@@ -6,6 +6,7 @@ import chukhlantsev.oleg.taskboard.web.dto.task.TaskDto;
 import chukhlantsev.oleg.taskboard.web.dto.validation.OnUpdate;
 import chukhlantsev.oleg.taskboard.web.mappers.TaskMapper;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +25,7 @@ public class TaskController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("@customSecurityExpression.canAccessTask(#id)")
     public TaskDto getById(@PathVariable Long id)
     {
         Task task = taskService.getTaskById(id);
@@ -31,6 +33,7 @@ public class TaskController {
     }
 
     @PutMapping
+    @PreAuthorize("@customSecurityExpression.canAccessTask(#dto.id)")
     public TaskDto update(@Validated(OnUpdate.class) @RequestBody TaskDto dto)
     {
         Task task = mapper.toEntity(dto);
@@ -39,6 +42,7 @@ public class TaskController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("@customSecurityExpression.canAccessTask(#id)")
     public void deleteById(@PathVariable Long id)
     {
         taskService.delete(id);

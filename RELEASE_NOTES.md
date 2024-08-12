@@ -1,3 +1,8 @@
+## 0.5.0-SNAPSHOT
+* added custom security expressions
+* fixed a bug with definition of task ownership 
+* fixed a bag with wrong time of access token validation
+* 
 ## 0.4.0-SNAPSHOT
 * added Swagger functional
 * 

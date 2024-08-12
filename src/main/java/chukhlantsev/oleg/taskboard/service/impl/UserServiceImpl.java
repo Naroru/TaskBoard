@@ -51,25 +51,16 @@ public class UserServiceImpl implements UserService {
     public User create(User user) {
 
         if (userRepository.findByUsername(user.getUsername()).isPresent())
-        {
             throw new IllegalStateException("User already exists");
-        };
 
         if(!user.getPassword().equals(user.getPasswordConfirmation()))
-        {
             throw new IllegalStateException("Password and password confirmation don't match");
-        };
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRoles(Set.of(Role.ROLE_USER));
         return userRepository.save(user);
     }
 
-    @Override
-    @Transactional(readOnly = true)
-    public boolean isTaskOwner(Long userID, Long taskID) {
-        return userRepository.isTaskOwner(userID, taskID);
-    }
 
     @Override
     @Transactional

@@ -12,7 +12,6 @@ public interface UserService {
 
     User create(User user);
 
-    boolean isTaskOwner(Long userID, Long taskID);
 
     void delete(Long id);
 

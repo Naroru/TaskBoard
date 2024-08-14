@@ -7,6 +7,9 @@ import chukhlantsev.oleg.taskboard.repository.TaskRepository;
 import chukhlantsev.oleg.taskboard.service.TaskService;
 import chukhlantsev.oleg.taskboard.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +25,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     @Transactional(readOnly = true)
+    @Cacheable(value = "TaskService::getTaskById")  //ключ указывать необязательно, т.к. 1 параметр и он является ключом
     public Task getTaskById(Long id) {
         return taskRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
@@ -30,12 +34,15 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Task> getAllByUserId(Long id) {
-        return  taskRepository.findAllByUserId(id);
+    //не кэшируем, потому что обновлять кэш придется при каждом изменении, добавлении задачи\удалении пользователя
+    //но на самом деле можно
+    public List<Task> getAllByUserId(Long userId) {
+        return  taskRepository.findAllByUserId(userId);
     }
 
     @Override
     @Transactional
+    @CachePut(value = "TaskService::getTaskById", key = "#task.id")
     public Task update(Task task) {
 
         if(task.getStatus() == null)
@@ -47,6 +54,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     @Transactional
+    @CachePut(value = "TaskService::getTaskById", key = "#task.id")
     public Task create(Task task, Long userId) {
 
         task.setStatus(Status.TODO);
@@ -58,6 +66,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     @Transactional
+    @CacheEvict(value = "TaskService::getTaskById") //ключ указывать необязательно, т.к. 1 параметр и он является ключом
     public void delete(Long id) {
 
         Optional<Task> taskOptional = taskRepository.findById(id);

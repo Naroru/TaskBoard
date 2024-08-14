@@ -89,7 +89,7 @@ public class ApplicationConfig {
     @Bean
     public OpenAPI openAPI() {
         return new OpenAPI()
-                //в случае если подключен JWT, то для отправки запросов, соответсвенно, требуется JWT токен
+                //для Сваггера - в случае если подключен JWT, то для отправки запросов, соответсвенно, требуется JWT токен
                 //для возможности его добавления конфигурируем настройки безопасности
                 .addSecurityItem(new SecurityRequirement()
                         .addList("bearerAuth"))

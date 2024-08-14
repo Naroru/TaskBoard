@@ -6,6 +6,11 @@ import chukhlantsev.oleg.taskboard.domain.user.User;
 import chukhlantsev.oleg.taskboard.repository.UserRepository;
 import chukhlantsev.oleg.taskboard.service.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +19,7 @@ import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
@@ -21,7 +27,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(readOnly = true)
+    @Cacheable(value = "UserService::getbyID") //ключ указывать необязательно, т.к. 1 параметр и он является ключом
     public User getByID(Long id) {
+
+        System.out.println("Вход в метод");
 
         return userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
@@ -30,6 +39,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(readOnly = true)
+    @Cacheable(value = "UserService::getByUsername")
     public User getByUsername(String username) {
 
         return userRepository.findByUsername(username)
@@ -40,6 +50,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
+    @Caching(
+            put = {
+                    @CachePut(
+                            value = "UserService::getbyID",
+                            key = "#user.id"
+                    ),
+                    @CachePut(
+                            value = "UserService::getByUsername",
+                            key = "#user.username"
+                    )
+            })
     public User update(User user) {
         //todo нужна ли в подобных методах проверка, что пользователь существует?
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -48,6 +69,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
+    @Caching(
+            put = {
+                    @CachePut(
+                            value = "UserService::getbyID",
+                            key = "#user.id"
+                    ),
+                    @CachePut(
+                            value = "UserService::getByUsername",
+                            key = "#user.username"
+                    )
+            })
     public User create(User user) {
 
         if (userRepository.findByUsername(user.getUsername()).isPresent())
@@ -64,6 +96,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
+    @CacheEvict(value = "UserService::getbyID", key = "#id") //не удаляем кэш по username. Потому что я хз как получить username
     public void delete(Long id) {
         userRepository.findById(id)
                 .ifPresent(userRepository::delete);

@@ -1,3 +1,6 @@
+## 0.6.0-SNAPSHOT
+* added caching by Redis
+* 
 ## 0.5.0-SNAPSHOT
 * added custom security expressions
 * fixed a bug with definition of task ownership 

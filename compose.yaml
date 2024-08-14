@@ -1,6 +1,11 @@
+volumes:
+  cache:
+    driver: local #докер создаст папку cache локально
+
 services:
   postgres:
     image: 'postgres:16.3'
+    container_name: postgres
     environment:
       - POSTGRES_DB=task_board
       - POSTGRES_PASSWORD=admin
@@ -9,3 +14,21 @@ services:
       - '5432:5432'
     expose:
       - '5432'
+
+#  redis:
+#    image: 'redis:7.2-rc-alpine'
+#    ports:
+#      - '6379'
+#    labels:
+#      org.springframework.boot.readiness-check.tcp.disable: true
+
+#
+  redis:
+    image: redis:7.2-rc-alpine
+    restart: always
+    container_name: redis
+    ports:
+      - '6379:6379'
+    command: redis-server --save 20 1 --loglevel warning #--requirepass YXNkYXNkYXNkYXNk #команда запуска редиса. Указываем пароль в кодировке base64
+    volumes:
+      - cache:/data  #маппим папку cache, которую создаст докер в папку data контейнера

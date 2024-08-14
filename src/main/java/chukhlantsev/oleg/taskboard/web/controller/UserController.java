@@ -63,6 +63,7 @@ public class UserController {
     @PreAuthorize("@customSecurityExpression.canAccessUser(#id)")
     public void deleteById(@PathVariable Long id)
     {
+
         userService.delete(id);
     }
 

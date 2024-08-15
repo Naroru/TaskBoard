@@ -2,10 +2,6 @@ spring:
   application:
     name: TaskBoard
 
-#берем переменные окружения из файла .env  (.properties)
-  config:
-    import: optional:file:.env[.properties]
-
   cache:
     type: redis
     cache-names: redis-cache
@@ -13,14 +9,14 @@ spring:
   #we dont need to configure database and redis in particular
 #  data:
 #    redis:
-#      host: ${REDIS_HOST}
+#      host: localhost
 #      port: 6379
-#      password: ${REDIS_PASSWORD}
+#      password: YXNkYXNkYXNkYXNk
 
 #  datasource:
-#    url: jdbc:postgresql://${POSTGRES_HOST}:5432/${POSTGRES_DB}
-#    username: ${POSTGRES_USERNAME}
-#    password: ${POSTGRES_PASSWORD}
+#    url: jdbc:postgresql://localhost:5432/task_board
+#    username: postgres
+#    password: admin
 #    driver-class-name: org.postgresql.Driver
 
   liquibase:
@@ -37,10 +33,10 @@ spring:
 
 security:
   jwt:
-    access: 1
-    refresh: 30
+    access: 3600000
+    refresh: 2592000000
     # secret that use to make signature of the token. It's a random string that encode via Base64
-    secret: ${JWT_SECRET}
+    secret: ZGpqc2RvaWprbGt6bmpzYmpraHpiZ25kYkpac25zYmZzZGE=
 
 springdoc:
   override-with-generic-response: false

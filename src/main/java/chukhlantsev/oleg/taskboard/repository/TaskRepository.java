@@ -18,5 +18,5 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
             """, nativeQuery = true)
     List<Task> findAllByUserId(@Param("userID") Long userID);
 
-    //List<Task> findAllByUserId(Long userID);
+
 }

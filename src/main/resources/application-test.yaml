@@ -1,23 +1,26 @@
 spring:
   application:
     name: TaskBoard
+  #берем переменные окружения из файла .env  (.properties)
+  config:
+    import: optional:file:.env[.properties]
 
   cache:
     type: redis
     cache-names: redis-cache
   #becasue we have docker support in pon.xml   we don't need to configure all objects from docker compose.
   #we dont need to configure database and redis in particular
-#  data:
-#    redis:
-#      host: localhost
-#      port: 6379
-#      password: YXNkYXNkYXNkYXNk
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password: ${REDIS_PASSWORD}
 
-#  datasource:
-#    url: jdbc:postgresql://localhost:5432/task_board
-#    username: postgres
-#    password: admin
-#    driver-class-name: org.postgresql.Driver
+  datasource:
+    url: jdbc:postgresql://localhost:5432/${POSTGRES_DB}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+    driver-class-name: org.postgresql.Driver
 
   liquibase:
     change-log: classpath:liquibase/db.main-changelog.yaml
@@ -33,10 +36,10 @@ spring:
 
 security:
   jwt:
-    access: 3600000
-    refresh: 2592000000
+    access: 1
+    refresh: 30
     # secret that use to make signature of the token. It's a random string that encode via Base64
-    secret: ZGpqc2RvaWprbGt6bmpzYmpraHpiZ25kYkpac25zYmZzZGE=
+    secret: ${JWT_SECRET}
 
 springdoc:
   override-with-generic-response: false

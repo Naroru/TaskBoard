@@ -11,17 +11,17 @@ spring:
     cache-names: redis-cache
   #becasue we have docker support in pon.xml   we don't need to configure all objects from docker compose.
   #we dont need to configure database and redis in particular
-#  data:
-#    redis:
-#      host: ${REDIS_HOST}
-#      port: 6379
-#      password: ${REDIS_PASSWORD}
+  data:
+    redis:
+      host: ${REDIS_HOST}
+      port: 6379
+      password: ${REDIS_PASSWORD}
 
-#  datasource:
-#    url: jdbc:postgresql://${POSTGRES_HOST}:5432/${POSTGRES_DB}
-#    username: ${POSTGRES_USERNAME}
-#    password: ${POSTGRES_PASSWORD}
-#    driver-class-name: org.postgresql.Driver
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_HOST}:5432/${POSTGRES_DB}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+    driver-class-name: org.postgresql.Driver
 
   liquibase:
     change-log: classpath:liquibase/db.main-changelog.yaml

@@ -1,3 +1,6 @@
+## 0.7.0-SNAPSHOT
+* added docker
+
 ## 0.6.0-SNAPSHOT
 * added caching by Redis
 * 

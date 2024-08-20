@@ -1,3 +1,6 @@
+## 0.8.0-SNAPSHOT
+* added unit tests
+* 
 ## 0.7.0-SNAPSHOT
 * added docker
 

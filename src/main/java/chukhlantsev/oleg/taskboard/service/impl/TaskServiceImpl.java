@@ -69,6 +69,7 @@ public class TaskServiceImpl implements TaskService {
     @CacheEvict(value = "TaskService::getTaskById") //ключ указывать необязательно, т.к. 1 параметр и он является ключом
     public void delete(Long id) {
 
+        //можно просто taskRepository.deleteById(id)
         Optional<Task> taskOptional = taskRepository.findById(id);
         taskOptional.ifPresent(taskRepository::delete);
 
